@@ -1,3 +1,59 @@
 body {
-    
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
 }
+
+*, *::before, *::after, button, html, body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    width: 50px;
+}
+
+.calculator {
+    border: 1px solid black;
+    display: flex;
+    flex-direction:column;
+}
+
+.display {
+    background:lightblue;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.calculator .inner-container {
+    display: flex;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 150px;
+}
+
+.numeric {
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.functional {
+    display: flex;
+}
+
+.operators {
+    display: flex;
+    flex-direction: column;
+}
+
+
