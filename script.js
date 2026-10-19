@@ -108,8 +108,16 @@ function ui() {
         } else if (e.target.classList.contains("clear")){
             clear();
         } else if (e.target.classList.contains("operator")){
-            num2 = "";
+            if (not(num2)){
+                num2 = "";
+            } else {
+                tempResult = operate(operator, num1, num2);
+                num1 = tempResult;
+                num2 = "";
+            }
             operator = e.target.innerText;
+            updateDisplay(testFunc=tempTestFunction);
+            
         } else if (e.target.classList.contains("equals")){
             //  a temp variable usage may matter latter for refactor.
             tempResult = operate(operator, num1, num2);
