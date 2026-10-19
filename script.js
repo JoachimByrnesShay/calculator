@@ -40,6 +40,7 @@ const display = document.querySelector(".display");
 const digits = document.querySelectorAll(".digit");
 const input = document.querySelector(".input");
 const calculator = document.querySelector(".calculator");
+const innerContainer = document.querySelector(".inner-container");
 
 const testingWindow = document.createElement("p");
 
@@ -49,7 +50,6 @@ function tempTestFunction() {
     testingWindow.style.fontSize = "0.4em";
     testingWindow.textContent = `num1: ${num1 ? num1 : ""}, num2: ${num2 ? num2: ""}, op: ${operator ? operator : ""}`
 }
-//testingWindow.textContent = "test";
 
 function operate(operator, num1, num2){
     switch(operator){
@@ -71,10 +71,10 @@ function operate(operator, num1, num2){
 }
 
 function updateDisplay(testfunc=null) {
-    if (num1 != undefined || num1 != null){
-        display.innerText = num1;
-    } else {
+    if (ready(num2)){
         display.innerText = num2;
+    } else {
+        display.innerText = num1;
     }
     if (testFunc) {
         testFunc();
@@ -93,7 +93,7 @@ function clear() {
 
 function ui() {
     display.innerText = num1;
-    input.addEventListener("click", (e) => {
+    innerContainer.addEventListener("click", (e) => {
         if(!e.target.tagName == "BUTTON") return;
         if(e.target.classList.contains("digit")) {
             const value = e.target.innerText;
@@ -106,6 +106,8 @@ function ui() {
             updateDisplay(testFunc=tempTestFunction)
         } else if (e.target.classList.contains("clear")){
             clear();
+        } else if (e.target.classList.contains("operator")){
+            num2 = "";
         }
     })
 }
