@@ -41,10 +41,15 @@ const digits = document.querySelectorAll(".digit");
 const input = document.querySelector(".input");
 const calculator = document.querySelector(".calculator");
 
-const testingWindow = document.createTextNode("");
+const testingWindow = document.createElement("p");
 
 calculator.prepend(testingWindow);
-testingWindow.textContent = "test";
+
+function tempTestFunction() {
+    testingWindow.style.fontSize = "0.4em";
+    testingWindow.textContent = `num1: ${num1 ? num1 : ""}, num2: ${num2 ? num2: ""}, op: ${operator ? operator : ""}`
+}
+//testingWindow.textContent = "test";
 
 function operate(operator, num1, num2){
     switch(operator){
@@ -65,9 +70,12 @@ function operate(operator, num1, num2){
     }
 }
 
-function updateDisplay() {
+function updateDisplay(testfunc=null) {
     if (num1 != undefined || num1 != null){
         display.innerText = num1;
+    }
+    if (testFunc) {
+        testFunc();
     }
 }
 
@@ -78,7 +86,7 @@ function clear() {
     operator = null;
     tempResult = null;
 
-    updateDisplay()
+    updateDisplay(testFunc=tempTestFunction)
 }
 
 function ui() {
@@ -93,7 +101,7 @@ function ui() {
             } else {
                 num1 = addDigit(num1, value)
             }
-            updateDisplay()
+            updateDisplay(testFunc=tempTestFunction)
         } else if (e.target.classList.contains("clear")){
             clear();
         }
