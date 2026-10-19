@@ -114,6 +114,8 @@ function ui() {
             //  a temp variable usage may matter latter for refactor.
             tempResult = operate(operator, num1, num2);
             console.log(tempResult)
+            num1 = tempResult;
+            num2 = "";
             updateDisplay(testFunc=tempTestFunction);
         }
     })
