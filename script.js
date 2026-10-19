@@ -1,17 +1,17 @@
 function add(a, b){
-    return a + b;
+    return +a + +b;
 }
 
 function subtract(a, b) {
-    return a - b;
+    return +a - +b;
 }
 
 function multiply(a, b){
-    return a * b;
+    return +a * +b;
 }
 
 function divide(a, b) {
-    return a / b;
+    return +a / +b;
 }
 
 let operator;
@@ -43,7 +43,6 @@ const calculator = document.querySelector(".calculator");
 const innerContainer = document.querySelector(".inner-container");
 
 const testingWindow = document.createElement("p");
-
 calculator.prepend(testingWindow);
 
 function tempTestFunction() {
@@ -59,7 +58,7 @@ function operate(operator, num1, num2){
         case "-":
             return subtract(num1, num2);
             break;
-        case "*":
+        case "X":
             return multiply(num1, num2);
             break;
         case "/":
@@ -71,7 +70,9 @@ function operate(operator, num1, num2){
 }
 
 function updateDisplay(testfunc=null) {
-    if (ready(num2)){
+    if (tempResult){
+        display.innerText = tempResult;
+    } else if (ready(num2)){
         display.innerText = num2;
     } else {
         display.innerText = num1;
@@ -108,6 +109,12 @@ function ui() {
             clear();
         } else if (e.target.classList.contains("operator")){
             num2 = "";
+            operator = e.target.innerText;
+        } else if (e.target.classList.contains("equals")){
+            //  a temp variable usage may matter latter for refactor.
+            tempResult = operate(operator, num1, num2);
+            console.log(tempResult)
+            updateDisplay(testFunc=tempTestFunction);
         }
     })
 }
