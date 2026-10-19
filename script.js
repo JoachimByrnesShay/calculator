@@ -27,7 +27,7 @@ function ready(val) {
 }
 
 function addDigit(operand, d){
-    if (operand === "0"){
+    if (operand === "0" || !operand){
         operand = d;
     } else {
         operand += d;
@@ -73,6 +73,8 @@ function operate(operator, num1, num2){
 function updateDisplay(testfunc=null) {
     if (num1 != undefined || num1 != null){
         display.innerText = num1;
+    } else {
+        display.innerText = num2;
     }
     if (testFunc) {
         testFunc();
