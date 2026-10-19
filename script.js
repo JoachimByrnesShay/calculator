@@ -17,10 +17,34 @@ function divide(a, b) {
 let operator;
 let num1 = "0";
 let num2;
+let tempResult;
+
+function not(val){
+    return val === undefined || val === null;
+}
+function ready(val) {
+    return typeof val === "string";
+}
+
+function addDigit(operand, d){
+    if (operand === "0"){
+        operand = d;
+    } else {
+        operand += d;
+    }
+    return operand;
+} 
+
 
 const display = document.querySelector(".display");
 const digits = document.querySelectorAll(".digit");
 const input = document.querySelector(".input");
+const calculator = document.querySelector(".calculator");
+
+const testingWindow = document.createTextNode("");
+
+calculator.prepend(testingWindow);
+testingWindow.textContent = "test";
 
 function operate(operator, num1, num2){
     switch(operator){
@@ -50,6 +74,10 @@ function updateDisplay() {
 function clear() {
     num1 = 0;
     num2 = null;
+    // come back to the below
+    operator = null;
+    tempResult = null;
+
     updateDisplay()
 }
 
@@ -60,10 +88,10 @@ function ui() {
         if(e.target.classList.contains("digit")) {
             const value = e.target.innerText;
             console.log(e.target.innerText)
-            if (num1 == "0"){
-                num1 = value;
+            if (ready(num2) ){
+                num2 = addDigit(num2, value)
             } else {
-                num1 += value;
+                num1 = addDigit(num1, value)
             }
             updateDisplay()
         } else if (e.target.classList.contains("clear")){
