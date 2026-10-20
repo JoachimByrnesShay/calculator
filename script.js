@@ -14,10 +14,10 @@ function divide(a, b) {
     return +a / +b;
 }
 
-let operator;
+let operator = undefined;
 let num1 = "0";
-let num2;
-let tempResult;
+let num2 = undefined;
+let tempResult = undefined;
 
 function not(val){
     return val === undefined || val === null;
@@ -47,7 +47,7 @@ calculator.prepend(testingWindow);
 
 function tempTestFunction() {
     testingWindow.style.fontSize = "0.4em";
-    testingWindow.textContent = `num1: ${num1 ? num1 : ""}, num2: ${num2 ? num2: ""}, op: ${operator ? operator : ""}`
+    testingWindow.textContent = `num1: ${num1 || typeof num1}, num2: ${num2 || typeof num2}, tempresult: ${tempResult || typeof tempResult} op: ${operator || typeof operator}`
 }
 
 function operate(operator, num1, num2){
@@ -94,39 +94,69 @@ function clear() {
 
 function ui() {
     display.innerText = num1;
-    innerContainer.addEventListener("click", (e) => {
-        if(!e.target.tagName == "BUTTON") return;
-        if(e.target.classList.contains("digit")) {
-            const value = e.target.innerText;
-            console.log(e.target.innerText)
-            if (ready(num2) ){
-                num2 = addDigit(num2, value)
-            } else {
-                num1 = addDigit(num1, value)
-            }
-            updateDisplay(testFunc=tempTestFunction)
-        } else if (e.target.classList.contains("clear")){
-            clear();
-        } else if (e.target.classList.contains("operator")){
-            if (not(num2)){
-                num2 = "";
-            } else {
-                tempResult = operate(operator, num1, num2);
-                num1 = tempResult;
-                num2 = "";
-            }
-            operator = e.target.innerText;
-            updateDisplay(testFunc=tempTestFunction);
-            
-        } else if (e.target.classList.contains("equals")){
-            //  a temp variable usage may matter latter for refactor.
-            tempResult = operate(operator, num1, num2);
-            console.log(tempResult)
-            num1 = tempResult;
-            num2 = "";
-            updateDisplay(testFunc=tempTestFunction);
-        }
+
+    const operators = document.querySelector(".operators");
+    operators.addEventListener("click", e=>{
+        if(!e.target.tagNme == "BUTTON") return;
+        // operator logic:  operators include +, -, / , x, and =
+        // equals logic
     })
+
+    const numeric = document.querySelector(".numeric");
+    numeric.addEventListener("click", e=>{
+          if(!e.target.tagNme == "BUTTON") return;
+          // numeric element contains buttons with .digit class as well as non-digit buttons with .sign and .decimal class
+          // digit logic etc
+    })
+
+    const functional = document.querySelector(".functional");
+    functional.addEventListener("click", e=>{
+        if(!e.target.tagNme == "BUTTON") return;
+        // functional element contains buttons with .backspace, .clear, and .percentage classes for those functions
+    })
+    // innerContainer.addEventListener("click", (e) => {
+    //     if(!e.target.tagName == "BUTTON") return;
+    //     if(e.target.classList.contains("digit")) {
+    //         const value = e.target.innerText;
+    //         console.log(e.target.innerText)
+    //         if (ready(num2) ){
+    //             num2 = addDigit(num2, value)
+    //         } else {
+    //             num1 = addDigit(num1, value)
+    //         }
+    //         updateDisplay(testFunc=tempTestFunction)
+    //     } else if (e.target.classList.contains("clear")){
+    //         clear();
+    //     } else if (e.target.classList.contains("operator")){
+    //         operator = e.target.innerText;
+            
+    //         //num1: 237, num2: , op: X
+    //         if (not(num2)){
+    //             num2 = "";
+    //         } else {
+    //             tempResult = operate(operator, num1, num2);
+    //             num1 = tempResult;
+    //             num2 = "";
+    //         }
+            
+    //         updateDisplay(testFunc=tempTestFunction);
+    //         tempResult = null;
+            
+    //     } else if (e.target.classList.contains("equals")){
+    //         //  a temp variable usage may matter latter for refactor.
+    //         //  this seeuence shows bug  
+    //         // 52+3, /5, x (immediately get infinity)
+    //         if (num2){
+    //             tempResult = operate(operator, num1, num2);
+    //             console.log(tempResult)
+    //             num1 = tempResult;
+    //             num2 = null;
+    //             updateDisplay(testFunc=tempTestFunction);
+    //             tempResult = null;
+    //         }
+            
+    //     }
+    // })
 }
 
 ui()
