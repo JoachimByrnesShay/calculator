@@ -166,6 +166,15 @@ function ui() {
         if (e.target.classList.contains("clear")){
             clear();
         }
+
+        if (e.target.classList.contains('percentage')){
+            if(num2.length){
+                num2 = num2 / 100;
+            } else {
+                num1 = num1 / 100;
+            }
+            updateDisplay();
+        }
     })
   
 }
