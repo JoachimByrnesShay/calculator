@@ -115,7 +115,14 @@ function ui() {
         // numeric element contains buttons with .digit class as well as non-digit buttons with .sign and .decimal class
         // digit logic etc
         // if num2 is a string and not null or undefined then we are in the process of entering num2, one digit at a time
-        if (e.target.classList.contains("digit") && operator){
+        if (e.target.classList.contains("sign")){
+            if (operator) {
+                num2 *= -1;
+            } else num1*=-1;
+            console.log(
+            [num1, num2]
+            )
+        } else if (e.target.classList.contains("digit") && operator){
             console.log("op")
             num2 = addDigit(num2, e.target.innerText);
         } else {
@@ -140,21 +147,21 @@ function ui() {
         // if we don't have an operator already we do not have a num2 and cannot do any calculations 
         // in some case, we do something and then set operator to current operator
 
-        if (not(operator)){
+       if (not(operator) || !num2.length) {
             operator = e.target.innerText;
-        } else if (e.target.classList.contains("equals")){
+       } else if (operator && num1 && num2.length && e.target.classList.contains("equals")){
             result = operate(operator, num1, num2);
             operator = null;
             num2 = ""
             num1 = result;
             updateDisplay();
-        }  else {
+        }  else if (operator && num1 && num2.length) {
             result = operate(operator, num1, num2);
             operator = e.target.innerText;
             updateDisplay();
             num2 = ""
             num1 = result;
-        }
+        } 
         result = null;
     })
 
@@ -168,7 +175,7 @@ function ui() {
         }
 
         if (e.target.classList.contains('percentage')){
-            if(num2.length){
+            if(operator){
                 num2 = num2 / 100;
             } else {
                 num1 = num1 / 100;
